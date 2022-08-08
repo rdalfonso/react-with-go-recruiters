@@ -2,13 +2,11 @@ import React, { useEffect, useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import Input from "./form-components/Input";
 
-
 const GraphQL = () => {
   const [recruiters, setRecruiters] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   const performSearch = () => {
-    console.log('searchTerm', searchTerm);
     const payload = `
         {
             search(nameContains: "${searchTerm}") {
@@ -19,7 +17,7 @@ const GraphQL = () => {
                 linkedin
             }
         }
-        `;
+    `;
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -33,12 +31,10 @@ const GraphQL = () => {
     fetch(`http://localhost:4000/v1/graphql`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         let theList = Object.values(data.data.search);
         return theList;
       })
       .then((theList) => {
-        console.log(theList);
         if (theList.length > 0) {
           setRecruiters(theList);
         } else {
@@ -60,8 +56,7 @@ const GraphQL = () => {
   };
 
   useEffect(() => {
-    const payload = `
-    {
+    const payload = `{
         list {
             id
             title
@@ -69,8 +64,7 @@ const GraphQL = () => {
             year
             description
         }
-    }
-    `;
+   }`;
 
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
@@ -84,15 +78,11 @@ const requestOptions = {
 fetch(`/v1/graphql`, requestOptions)
   .then((response) => response.json())
   .then((data) => {
-    console.log(data);
     let theList = Object.values(data.data.list);
     return theList;
   })
   .then((theList) => {
-    console.log(theList);
-    this.setState({
-      recruiters: theList,
-    });
+    setRecruiters(theList);
   });
 }, [])
 
@@ -100,8 +90,7 @@ fetch(`/v1/graphql`, requestOptions)
 
 return (
   <Fragment>
-    <h2>Enter a recruiter name or company</h2>
-
+    <h4>Enter a recruiter name or company</h4>
     <Input
       type={"text"}
       name={"search"}
@@ -114,7 +103,7 @@ return (
         <Link
           key={m.id}
           className="list-group-item list-group-item-action"
-          to={`/recruitersgraphql/${m.id}`}
+          to={`/recruiters/graphql/${m.id}`}
         >
         {m.name} ({m.company}) -  {m.title} 
         </Link>

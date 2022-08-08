@@ -76,7 +76,6 @@ const Login = (props) => {
         setEmail(evt.target.value);
     }
 
-    
     return (
         <Fragment>
             <h2>Login</h2>

@@ -1,5 +1,6 @@
-import React, {useEffect, useState, Fragment } from 'react'
-import { Link } from "react-router-dom"
+import React, { useEffect, useState, Fragment } from 'react';
+import { Link } from "react-router-dom";
+
 
 const Recruiters = (props) => {
     const [recruiters, setRecruiter] = useState([]);
@@ -26,6 +27,7 @@ const Recruiters = (props) => {
         return (
             <Fragment>
             <h2>Choose a recruiter</h2>
+                {   /* <button onClick={lazyImport}>Let imports</button> */ }
             <div className="list-group">
                 {recruiters.map((m) => (
                 <Link

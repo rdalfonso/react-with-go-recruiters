@@ -2,6 +2,7 @@ import React from 'react';
 import Ticket from "./../images/rr.jpg";
 
 const Home = () => {
+
     return (
     <div style={{ width:"70%" }}>
         <div>

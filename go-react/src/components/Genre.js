@@ -6,7 +6,6 @@ const Genre = (props) => {
     const [error, setError] = useState(null);
     let [genreName, setGenreName] = useState("");
     
-
     useEffect(() => {
         fetch(`http://localhost:4000/v1/recruiters/` + props.match.params.id)
       .then((response) => {
@@ -18,7 +17,6 @@ const Genre = (props) => {
         return response.json();
       })
       .then((json) => {
-          console.log("Value", props.location.genreName);
         setGenreName(props.location.genreName);
         setRecruiters(json.recruiters);
       });

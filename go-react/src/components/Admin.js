@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const Admin = () => {
   const [recruiters, setRecruiters] = useState([]);
-  const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState("");
 
   useEffect(() => {
@@ -18,9 +17,7 @@ const Admin = () => {
       });
   }, []);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
+  if (!isLoaded) {
     return <p>Loading...</p>;
   } else {
     return (

@@ -1,7 +1,6 @@
 import React, {useEffect, useState, Fragment} from 'react'
 import Input from "./form-components/Input";
 import Select from "./form-components/Select";
-import TextArea from "./form-components/TextArea";
 import Alert from "./ui-components/Alert";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -70,7 +69,6 @@ const EditRecruiter = (props) => {
           return false;
         }
     
-        // we passed, so post info
         const data = new FormData(evt.target);
         const payload = Object.fromEntries(data.entries());
         const myHeaders = new Headers();
@@ -84,6 +82,7 @@ const EditRecruiter = (props) => {
           body: JSON.stringify(payload),
           headers: myHeaders,
         };
+
         fetch("http://localhost:4000/v1/admin/editrecruiter", requestOptions)
           .then((response) => response.json())
           .then((data) => {

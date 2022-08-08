@@ -13,6 +13,7 @@ import Login from "./components/Login";
 
 const App = () => {
     const [jwt, setJWT] = useState("");
+    const [Login, setLogin] = useState(null);
 
     useEffect(() => {
         let token = window.localStorage.getItem("jwt");
@@ -61,6 +62,7 @@ const App = () => {
                   My Profile
                 </button>;
     }
+
 
     return (
         <Router>

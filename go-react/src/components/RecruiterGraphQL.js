@@ -1,9 +1,10 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
-export default class RecruiterGraphQL extends Component {
-  state = { recruiter: {}, isLoaded: false, error: null };
-
-  componentDidMount() {
+const RecruiterGraphQL = () => {
+  const [recruiter, setRecruiter] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+   
+  useEffect(() => {
     const payload = `
     {
         recruiter(id: ${this.props.match.params.id}) {
@@ -31,52 +32,46 @@ export default class RecruiterGraphQL extends Component {
       .then((response) => response.json())
       .then((data) => {
         console.log('graphql', data);
-        this.setState({
-          recruiter: data.data.recruiter,
-          isLoaded: true,
-        });
+        setRecruiter(data.data.recruiter);
+        setIsLoaded(true);
       });
+}, []);
+
+  if (recruiter.genres) {
+    recruiter.genres = Object.values(recruiter.genres);
+  } else {
+    recruiter.genres = [];
   }
 
-  render() {
-    const { recruiter, isLoaded, error } = this.state;
-    if (recruiter.genres) {
-      recruiter.genres = Object.values(recruiter.genres);
-    } else {
-      recruiter.genres = [];
-    }
-
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
-      return <p>Loading...</p>;
-    } else {
-      return (
+if (!isLoaded) {
+    return <p>Loading...</p>;
+  } else {
+    return (
         <Fragment>
-          <h2>Recruiter: {recruiter.name} ({recruiter.company})</h2>
-
-          <div>Rating: {recruiter.stars}</div>
-                <div>
-                    {recruiter.genres.map((genre, index) =>(
-                        <span className="badge bg-secondary me-1" key={index}>
-                            {genre}
-                        </span>
-                    ))}
-                </div>
-                <div className="row">
-                Company:{recruiter.company}
-                </div>
-                <div className="row">
-                Title:{recruiter.title}
-                </div>
-                <div className="row">
-                Linkedin:{recruiter.linkedin}
-                </div>
-                <div className="row">
-                Emails:{recruiter.email}
-                </div>
+              <h2>Recruiter: {recruiter.name} ({recruiter.company})</h2>
+              <div>Rating: {recruiter.stars}</div>
+              <div>
+                  {recruiter.genres.map((genre, index) =>(
+                      <span className="badge bg-secondary me-1" key={index}>
+                          {genre}
+                      </span>
+                  ))}
+              </div>
+              <div className="row">
+                Company: {recruiter.company}
+              </div>
+              <div className="row">
+                Title: {recruiter.title}
+              </div>
+              <div className="row">
+                Linkedin: {recruiter.linkedin}
+              </div>
+              <div className="row">
+                Emails: {recruiter.email}
+              </div>
         </Fragment>
-      );
-    }
+    );
   }
 }
+
+export default RecruiterGraphQL;
