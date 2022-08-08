@@ -1,6 +1,13 @@
 import React, {useEffect, useState, Fragment} from 'react'
 import { Link } from "react-router-dom"
 
+import styled from 'styled-components';
+
+const BaseStyle = styled.div`
+   font-size: 14px;
+   width:"70%";
+`;
+
 const Genre = (props) => {
     let [recruiters, setRecruiters] = useState([]);
     const [error, setError] = useState(null);
@@ -34,6 +41,7 @@ const Genre = (props) => {
         return (
             <Fragment>
               <h2>Genre: {genreName}</h2>
+              <BaseStyle>
               <div className="list-group">
                 {recruiters.map((m) => (
                   <Link
@@ -45,6 +53,7 @@ const Genre = (props) => {
                   </Link>
                 ))}
               </div>
+              </BaseStyle>
             </Fragment>
           );
     }

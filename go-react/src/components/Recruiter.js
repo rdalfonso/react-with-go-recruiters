@@ -1,4 +1,10 @@
 import React, {useEffect, useState, Fragment} from 'react'
+import styled from 'styled-components';
+
+const BaseStyle = styled.div`
+   font-size: 14px;
+   width:"70%";
+`;
 
 const Recruiter = (props) => {
     const [recruiter, setRecruiter] = useState({});
@@ -31,6 +37,7 @@ const Recruiter = (props) => {
     } else {
         return (
             <Fragment>
+             <BaseStyle>
                 <h2> Recruiter: {recruiter.name}</h2>
                 <div>
                     <div >
@@ -58,6 +65,7 @@ const Recruiter = (props) => {
                         <strong>Rating:</strong>{recruiter.stars}  <br></br> <br></br>
                     </div>
              </div>
+             </BaseStyle>
             </Fragment>
           );
     }

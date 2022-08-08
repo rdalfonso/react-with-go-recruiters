@@ -2,6 +2,14 @@ import React, { useEffect, useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import Input from "./form-components/Input";
 
+import styled from 'styled-components';
+
+const BaseStyle = styled.div`
+   font-size: 14px;
+   width:"70%";
+`;
+
+
 const GraphQL = () => {
   const [recruiters, setRecruiters] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -90,6 +98,7 @@ fetch(`/v1/graphql`, requestOptions)
 
 return (
   <Fragment>
+   <BaseStyle>
     <h4>Enter a recruiter name or company</h4>
     <Input
       type={"text"}
@@ -109,6 +118,7 @@ return (
         </Link>
       ))}
     </div>
+    </BaseStyle>
   </Fragment>
 );
 }

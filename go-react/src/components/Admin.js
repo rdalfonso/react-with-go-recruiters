@@ -1,5 +1,10 @@
 import React, {useEffect, useState, Fragment } from 'react'
 import { Link } from "react-router-dom";
+import styled from 'styled-components';
+
+const ListStyle = styled.div`
+   font-size: 14px;
+`;
 
 const Admin = () => {
   const [recruiters, setRecruiters] = useState([]);
@@ -31,7 +36,7 @@ const Admin = () => {
               className="list-group-item list-group-item-action"
               to={`/admin/recruiter/${m.id}`}
             >
-             {m.name} ({m.title})
+             <ListStyle>{m.name} ({m.title})</ListStyle>
             </Link>
           ))}
         </div>

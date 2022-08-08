@@ -1,6 +1,11 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { Link } from "react-router-dom";
+import styled from 'styled-components';
 
+const BaseStyle = styled.div`
+   font-size: 14px;
+   width:"70%";
+`;
 
 const Recruiters = (props) => {
     const [recruiters, setRecruiter] = useState([]);
@@ -26,19 +31,21 @@ const Recruiters = (props) => {
     } else {
         return (
             <Fragment>
-            <h2>Choose a recruiter</h2>
-                {   /* <button onClick={lazyImport}>Let imports</button> */ }
-            <div className="list-group">
-                {recruiters.map((m) => (
-                <Link
-                    key={m.id}
-                    className="list-group-item list-group-item-action"
-                    to={`/recruiter/${m.id}`}
-                >
-                   {m.name} ({m.title}) - {m.company}
-                </Link>
-                ))}
-            </div>
+                <BaseStyle>
+                    <h2>Choose a recruiter</h2>
+                    {   /* <button onClick={lazyImport}>Let imports</button> */ }
+                    <div className="list-group">
+                        {recruiters.map((m) => (
+                        <Link
+                            key={m.id}
+                            className="list-group-item list-group-item-action"
+                            to={`/recruiter/${m.id}`}
+                        >
+                        {m.name} ({m.title}) - {m.company}
+                        </Link>
+                        ))}
+                    </div>
+                </BaseStyle>
             </Fragment>
         );
     }

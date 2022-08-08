@@ -1,4 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
+import styled from 'styled-components';
+
+const BaseStyle = styled.div`
+   font-size: 14px;
+   width:"70%";
+`;
 
 const RecruiterGraphQL = () => {
   const [recruiter, setRecruiter] = useState(null);
@@ -48,6 +54,7 @@ if (!isLoaded) {
   } else {
     return (
         <Fragment>
+          <BaseStyle>
               <h2>Recruiter: {recruiter.name} ({recruiter.company})</h2>
               <div>Rating: {recruiter.stars}</div>
               <div>
@@ -69,6 +76,7 @@ if (!isLoaded) {
               <div className="row">
                 Emails: {recruiter.email}
               </div>
+              </BaseStyle>
         </Fragment>
     );
   }

@@ -6,6 +6,13 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link } from 'react-router-dom'; 
 
+import styled from 'styled-components';
+
+const BaseStyle = styled.div`
+   font-size: 14px;
+   width:"70%";
+`;
+
 const EditRecruiter = (props) => {
     const [recruiter, setRecruiter] = useState({});
     const [error, setError] = useState(null);
@@ -154,7 +161,7 @@ const EditRecruiter = (props) => {
                 alertType={alert.type}
                 alertMessage={alert.message}
               />
-
+            <BaseStyle>
               <form onSubmit={handleSubmit}>
                 <input
                   type="hidden"
@@ -242,6 +249,7 @@ const EditRecruiter = (props) => {
                   </a>
                 )}
               </form>
+              </BaseStyle>
             </Fragment>
           );
       }

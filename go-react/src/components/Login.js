@@ -1,6 +1,12 @@
 import React, {useState, Fragment} from 'react'
 import Input from './form-components/Input'
 import Alert from './ui-components/Alert'
+import styled from 'styled-components';
+
+const BaseStyle = styled.div`
+   font-size: 14px;
+   width:"70%";
+`;
 
 const Login = (props) => {
     const [email, setEmail] = useState("");
@@ -78,6 +84,7 @@ const Login = (props) => {
 
     return (
         <Fragment>
+         <BaseStyle>
             <h2>Login</h2>
             <Alert
             alertType={alert.type}
@@ -108,9 +115,9 @@ const Login = (props) => {
     
             <button className="btn btn-primary">Login</button>
             </form>
-        </Fragment>
-        );
-      
+        </BaseStyle>
+      </Fragment>
+    );  
 }
 
 export default Login;
