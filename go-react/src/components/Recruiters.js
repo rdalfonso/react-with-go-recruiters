@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, useCallback, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -7,26 +7,29 @@ const BaseStyle = styled.div`
    width:"70%";
 `;
 
+
 const Recruiters = (props) => {
     const [recruiters, setRecruiter] = useState([]);
     const [error, setError] = useState("");
 
-    useEffect(() => {
-        fetch(`http://localhost:4000/v1/recruiters/`)
-        .then((response) => {
-          if (response.status !== 200) {
-            setError("Invalid response code: ", response.status);
-          } else {
-              setError(null);
-          }
-          return response.json();
-        })
-        .then((json) => {
-            setRecruiter(json.recruiters);
-        });
-    }, []);
+   const fetchData = useCallback(async () => {
+     try {
+        const response = await fetch(`http://localhost:4000/v1/recruiters/`);
+        console.log(response);
+        const data = await response.json();
+        console.log(data);
+        setRecruiter(data.recruiters);
+     } catch(err) {
+        console.log(err);
+       setError(err)
+     }
+   }, []);
 
-    if (error !== null) {
+    useEffect(() => {
+      fetchData()
+    }, [fetchData]);
+
+    if (error.length > 0) {
         return <div>Error: {error.message}</div>;
     } else {
         return (

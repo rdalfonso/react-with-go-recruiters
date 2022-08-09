@@ -112,7 +112,7 @@ return (
         <Link
           key={m.id}
           className="list-group-item list-group-item-action"
-          to={`/recruiters/graphql/${m.id}`}
+          to={`/recruiter/${m.id}`}
         >
         {m.name} ({m.company}) -  {m.title} 
         </Link>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment} from 'react'
+import React, {useEffect, useState, useCallback, Fragment} from 'react'
 import { Link } from "react-router-dom"
 
 import styled from 'styled-components';
@@ -12,24 +12,23 @@ const Genre = (props) => {
     let [recruiters, setRecruiters] = useState([]);
     const [error, setError] = useState(null);
     let [genreName, setGenreName] = useState("");
-    
-    useEffect(() => {
-        fetch(`http://localhost:4000/v1/recruiters/` + props.match.params.id)
-      .then((response) => {
-        if (response.status !== 200) {
-          setError("Invalid response: ", response.status);
-        } else {
-            setError(null);
-        }
-        return response.json();
-      })
-      .then((json) => {
-        setGenreName(props.location.genreName);
-        setRecruiters(json.recruiters);
-      });
-    }, [props.match.params.id, props.location.genreName]);
 
-    
+    const fetchData = useCallback(async () => {
+      try {
+         const response = await fetch(`http://localhost:4000/v1/recruiters/` + props.match.params.id);
+         const data = await response.json();
+         setGenreName(props.location.genreName);
+         setRecruiters(data.recruiters);
+
+      } catch(err) {
+        setError(err)
+      }
+    }, [props.match.params.id, props.location.genreName]);
+ 
+    useEffect(() => {
+      fetchData()
+    }, [fetchData]);
+
 
     if (!recruiters) {
       recruiters = [];

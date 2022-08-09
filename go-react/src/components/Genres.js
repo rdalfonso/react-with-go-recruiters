@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment} from 'react'
+import React, {useEffect, useState, useCallback, Fragment} from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 
@@ -8,24 +8,26 @@ const BaseStyle = styled.div`
 `;
 
 
-const Genres = (props) => {
+const Genres = () => {
     const [genres, setGenres] = useState([]);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        fetch(`http://localhost:4000/v1/genres`)
-        .then((response) => {
-        if (response.status !== 200) {
-            setError("Invalid response code: ", response.status);
-        } else {
-            setError(null);
-        }
-            return response.json();
-        })
-        .then((json) => {
-            setGenres(json.genres);
-        }, []);
-    })
+    const fetchData = useCallback(async () => {
+      try {
+         const response = await fetch(`http://localhost:4000/v1/genres/`);
+         console.log(response);
+         const data = await response.json();
+         console.log(data);
+         setGenres(data.genres);
+      } catch(err) {
+         console.log(err);
+        setError(err)
+      }
+    }, []);
+ 
+     useEffect(() => {
+       fetchData()
+     }, [fetchData]);
 
     if (error !== null) {
         return <div>Error: {error.message}</div>
@@ -48,6 +50,7 @@ const Genres = (props) => {
                 </Link>
               ))}
             </div>
+            {error && <div>Error: {error.message}</div>}
           </BaseStyle>
         </Fragment>
     );

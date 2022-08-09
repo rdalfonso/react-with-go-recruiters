@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment} from 'react'
+import React, {useEffect, useState, useCallback, Fragment} from 'react'
 import styled from 'styled-components';
 
 const BaseStyle = styled.div`
@@ -10,21 +10,23 @@ const Recruiter = (props) => {
     const [recruiter, setRecruiter] = useState({});
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        fetch(`http://localhost:4000/v1/recruiter/` + props.match.params.id)
-        .then((response) => {
-        if (response.status !== 200) {
-            setError("Invalid response: ", response.status);
-        } else {
-            setError(null);
+
+    const fetchData = useCallback(async () => {
+        try {
+           const response = await fetch(`http://localhost:4000/v1/recruiter/` + props.match.params.id)
+           console.log(response);
+           const data = await response.json();
+           console.log(data);
+           setRecruiter(data.recruiter);
+        } catch(err) {
+           console.log(err);
+          setError(err)
         }
-            return response.json();
-        })
-        .then((json) => {
-          console.log('json', json)
-          setRecruiter(json.recruiter);
-        });
-    }, [props.match.params.id]);
+      }, []);
+   
+       useEffect(() => {
+         fetchData()
+       }, [fetchData]);
 
     if (recruiter.genres) {
       recruiter.genres = Object.values(recruiter.genres);

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment } from 'react'
+import React, {useEffect, useState, useCallback, Fragment } from 'react'
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -9,18 +9,22 @@ const ListStyle = styled.div`
 const Admin = () => {
   const [recruiters, setRecruiters] = useState([]);
   const [isLoaded, setIsLoaded] = useState("");
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    fetch(`http://localhost:4000/v1/recruiters`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        console.log('json.recruiters', json.recruiters);
-        setRecruiters(json.recruiters);
-        setIsLoaded(true);
-      });
+  const fetchData = useCallback(async () => {
+    try {
+       const response = await fetch(`http://localhost:4000/v1/recruiters/`);
+       const data = await response.json();
+       setRecruiters(data.recruiters);
+       setIsLoaded(true);
+    } catch(err) {
+      setError(err)
+    }
   }, []);
+
+   useEffect(() => {
+     fetchData()
+   }, [fetchData]);
 
   if (!isLoaded) {
     return <p>Loading...</p>;
@@ -40,6 +44,7 @@ const Admin = () => {
             </Link>
           ))}
         </div>
+        {error && <div>{error}</div>}
       </Fragment>
     );
   }

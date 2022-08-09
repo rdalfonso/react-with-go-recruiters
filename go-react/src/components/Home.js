@@ -15,14 +15,13 @@ const Home = () => {
             <div className="row"><b>Don't get burned. Reduce spam. Less harassment.</b></div>
             <div className="row"> 
                 <img 
-                height="300px"
-                width="500px"
+                    height="300px"
+                    width="500px"
                     src={Ticket} 
-                    alt="recruiter images" />
+                    alt="recruiter images" 
+                />
             </div>
-
             <div className="row">&nbsp;</div>
-
             <div className="row">
                 <div className="col-md-3" >&nbsp;</div>
                 <div className="col-md-9">
