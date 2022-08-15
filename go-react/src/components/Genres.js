@@ -7,7 +7,6 @@ const BaseStyle = styled.div`
    width:"70%";
 `;
 
-
 const Genres = () => {
     const [genres, setGenres] = useState([]);
     const [error, setError] = useState(null);

@@ -99,12 +99,13 @@ fetch(`/v1/graphql`, requestOptions)
 return (
   <Fragment>
    <BaseStyle>
-    <h4>Enter a recruiter name or company</h4>
+
     <Input
       type={"text"}
       name={"search"}
       value={searchTerm}
       handleChange={handleChange}
+      placeholder="Enter a recruiter name or company"
     />
 
     <div className="list-group">

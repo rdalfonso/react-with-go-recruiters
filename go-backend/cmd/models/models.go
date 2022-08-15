@@ -19,16 +19,37 @@ func NewModels(db *sql.DB) Models {
 
 //Recruiter is the type for recruiter
 type Recruiter struct {
-	ID             int            `json:"id"`
-	Name           string         `json:"name"`
-	Title          string         `json:"title"`
-	LinkedIn       string         `json:"linkedin"`
-	Email          string         `json:"email"`
-	Company        string         `json:"company"`
-	Stars          int            `json:"stars"`
-	CreatedAt      time.Time      `json:"created_at"`
-	UpdatedAt      time.Time      `json:"updated_at"`
-	RecruiterGenre map[int]string `json:"genres"`
+	ID               int            `json:"id"`
+	Name             string         `json:"name"`
+	Title            string         `json:"title"`
+	LinkedIn         string         `json:"linkedin"`
+	Email            string         `json:"email"`
+	Company          string         `json:"company"`
+	Stars            int            `json:"stars"`
+	CreatedAt        time.Time      `json:"created_at"`
+	UpdatedAt        time.Time      `json:"updated_at"`
+	RecruiterGenre   map[int]string `json:"genres"`
+	RecruiterReviews map[int]string `json:"reviews"`
+}
+
+//Review is the type for review
+type Review struct {
+	ID          int       `json:"id"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Rating      int       `json:"rating"`
+	CreatedAt   time.Time `json:"-"`
+	UpdatedAt   time.Time `json:"-"`
+}
+
+//RecruiterReview is the type for recruiter genre
+type RecruiterReview struct {
+	ID          int       `json:"-"`
+	RecruiterID int       `json:"-"`
+	ReviewID    int       `json:"-"`
+	Review      Review    `json:"revew"`
+	CreatedAt   time.Time `json:"-"`
+	UpdatedAt   time.Time `json:"-"`
 }
 
 //Genre is the type for genre

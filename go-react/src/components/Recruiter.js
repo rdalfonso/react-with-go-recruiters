@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useCallback, Fragment} from 'react'
 import styled from 'styled-components';
+import Review from './Review';
 
 const BaseStyle = styled.div`
    font-size: 14px;
@@ -20,7 +21,7 @@ const Recruiter = (props) => {
            setRecruiter(data.recruiter);
         } catch(err) {
            console.log(err);
-          setError(err)
+           setError(err)
         }
       }, []);
    
@@ -33,6 +34,12 @@ const Recruiter = (props) => {
     } else {
       recruiter.genres = [];
     }
+
+    if (recruiter.reviews) {
+        recruiter.reviews = Object.values(recruiter.reviews);
+      } else {
+        recruiter.reviews = [];
+      }
 
     if (error !== null) {
         return <div>Error: {error.message}</div>
@@ -51,21 +58,32 @@ const Recruiter = (props) => {
                     </div>
                     <br></br>
                     <div >
-                        <strong>Company:</strong> {recruiter.company}  <br></br> <br></br>
-                    </div>
-      
-                    <div>
-                        <strong>Title:</strong> {recruiter.title}  <br></br> <br></br>
+                     <strong>Company:</strong> {recruiter.company}  <br></br> <br></br>
                     </div>
                     <div>
-                        <strong>LinkedIn:</strong> {recruiter.linkedin}  <br></br> <br></br>
+                      <strong>Title:</strong> {recruiter.title}  <br></br> <br></br>
                     </div>
                     <div>
-                        <strong>Email:</strong>{recruiter.email}  <br></br> <br></br>
+                      <strong>LinkedIn:</strong> {recruiter.linkedin}  <br></br> <br></br>
                     </div>
                     <div>
-                        <strong>Rating:</strong>{recruiter.stars}  <br></br> <br></br>
+                      <strong>Email:</strong>{recruiter.email}  <br></br> <br></br>
                     </div>
+                    <div>
+                      <strong>Rating:</strong>{recruiter.stars}  <br></br> <br></br>
+                    </div>
+                     <div>
+                       <h5>Reviews for this recruiter</h5>
+                    </div>
+                    <div>
+                       {recruiter.reviews.length <= 0 && (
+                        <>No reviews for {recruiter.name}. Be the first to review</>
+                       )}
+                       {recruiter.reviews.map((review, index) => {
+                         return <Review review={review} key={index} />
+                       })}
+                    </div>
+
              </div>
              </BaseStyle>
             </Fragment>

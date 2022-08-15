@@ -1,7 +1,8 @@
-import React, {useState, useEffect, Fragment} from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Admin from "./components/Admin";
-import Home from "./components/Home";
+//import Home from "./components/Home";
+//import About from "./components/About";
 
 import GraphQL from "./components/GraphQL";
 import Recruiters from "./components/Recruiters";
@@ -9,7 +10,79 @@ import Genres from "./components/Genres";
 import Recruiter from "./components/Recruiter";
 import Genre from "./components/Genre";
 import EditRecruiter from "./components/EditRecruiter";
-import Login from "./components/Login";
+import styled from 'styled-components';
+
+const BaseStyle = styled.div`
+   font-size: 14px;
+   width:"70%";
+`;
+
+const SideBar = styled.div`
+  width:250px;
+  margin-right:60px;
+`;
+
+const HeaderStyle = styled.div`
+   display: flex;
+   justify-content: space-between;
+   flex-direction: row;
+   padding:20px;
+`;
+
+const BodyStyle = styled.div`
+   display: flex;
+   justify-content: start;
+   flex-direction: row;
+   padding:20px;
+`;
+
+const MainStyle = styled.div`
+  width:60%;
+`;
+
+const ListItem = styled.li`
+  position: relative;
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #212529;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.125);
+`;
+
+
+const BetaButton = styled.button`
+  width:140px;
+  color: white;
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+`;
+
+const LoginButton = styled.button`
+  width:80px;
+  color: white;
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+`;
+
+const SignupButton = styled.button`
+  width:120px;
+  color: white;
+  background-color: green;
+  border-color: green;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+`;
 
 const App = () => {
     const [jwt, setJWT] = useState("");
@@ -37,79 +110,68 @@ const App = () => {
     let signUpLink;
  
     if (jwt === "") {
-      loginLink = <button 
-                    onClick={(e) => {  e.preventDefault(); window.location.href='/login'; }} 
-                    className="btn btn-info">
+      loginLink = <LoginButton onClick={(e) => {  e.preventDefault(); window.location.href='/login'; }} >
                     Login
-                  </button>;
+                  </LoginButton>;
 
-      signUpLink = <button 
-                    onClick={(e) => {  e.preventDefault(); window.location.href='/signup'; }} 
-                    className="btn btn-success">
+      signUpLink = <SignupButton onClick={(e) => {  e.preventDefault(); window.location.href='/signup'; }}>
                     Sign Up
-                  </button>;
+                  </SignupButton>;
 
     } else {
-     loginLink = <button 
-                    onClick={logout} 
-                    className="btn btn-info">
-                    Logout
-                  </button>;
+     loginLink = <LoginButton onClick={logout} >Logout</LoginButton>;
     
-    signUpLink = <button 
-                  onClick={(e) => {  e.preventDefault(); window.location.href='/login'; }} 
-                  className="btn btn-success">
+     signUpLink = <SignupButton onClick={(e) => {  e.preventDefault(); window.location.href='/login'; }}>
                   My Profile
-                </button>;
+                </SignupButton>;
     }
 
 
     return (
-        <Router>
-        <div className="container">
-            <div className="row">&nbsp;</div>
-              <div className="row">
-                <div className='col-md-2 logo hidden-xs'>
-                   <button className="btn btn-info">BETA VERSION</button>
+      <Router>
+        <BaseStyle>
+              <HeaderStyle>
+                <div>
+                   <BetaButton>BETA VERSION</BetaButton>
                 </div>
-                <div className='col-md-8' style={{ fontSize:"24px", fontFamily:"monospace", fontWeight:400, textAlign:"center" }}>
+                <div  style={{ fontSize:"24px", fontFamily:"monospace", fontWeight:400, textAlign:"center" }}>
                   WELCOME TO RECRUITER VERIFICATION SEARCH
                 </div>
-                <div className='col-md-2'>
-                  <div className="col mt-3 text-end">{signUpLink} {loginLink}</div>
+                <div>
+                   <div>{signUpLink} {loginLink}</div>
                 </div>
-            </div>
-            <div className="row">
-              <div className="col-md-2">
-              <nav>
+            </HeaderStyle>
+            <BodyStyle>
+              <SideBar>
+                <nav>
                 <ul className="list-group">
-                  <li className="list-group-item">
+                  <ListItem>
                     <Link to="/">Home</Link>
-                  </li>
-                  <li className="list-group-item">
+                  </ListItem>
+                  <ListItem>
                     <Link to="/recruiters">Recruiters</Link>
-                  </li>
-                  <li className="list-group-item">
+                  </ListItem>
+                  <ListItem>
                     <Link to="/genres">Genres</Link>
-                  </li>
+                  </ListItem>
                   {jwt !== "" && (
                     <Fragment>
-                      <li className="list-group-item">
+                      <ListItem>
                         <Link to="/admin/recruiter/0">Add Recruiter</Link>
-                      </li>
-                      <li className="list-group-item">
+                      </ListItem>
+                      <ListItem>
                         <Link to="/admin">Manage Catalogue</Link>
-                      </li>
+                      </ListItem>
                     </Fragment>
                   )}
-                  <li className="list-group-item">
+                  <ListItem>
                     <Link to="/graphql">GraphQL</Link>
-                  </li>
+                  </ListItem>
                 </ul>
               </nav>
-            </div>
+            </SideBar>
 
-            <div className="col-md-10">
+            <MainStyle>
               <Switch>
                 <Route path="/recruiter/:id" component={Recruiter} />
 
@@ -150,14 +212,12 @@ const App = () => {
                 />
 
                 <Route path="/">
-                  <Home />
+                  <GraphQL />
                 </Route>
               </Switch>
-            </div>
-          </div>
-
-          <div className="row">&nbsp;</div>
-        </div>
+            </MainStyle>
+          </BodyStyle>
+        </BaseStyle>
       </Router>
     );
 }

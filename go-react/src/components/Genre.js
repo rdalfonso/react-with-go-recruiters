@@ -8,6 +8,22 @@ const BaseStyle = styled.div`
    width:"70%";
 `;
 
+const ListItem = styled.li`
+  position: relative;
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #212529;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.125);
+
+  a {
+    font-style: none;
+    font-size: 14px;
+    color: green;
+  }
+`;
+
 const Genre = (props) => {
     let [recruiters, setRecruiters] = useState([]);
     const [error, setError] = useState(null);
@@ -41,15 +57,16 @@ const Genre = (props) => {
             <Fragment>
               <h2>Genre: {genreName}</h2>
               <BaseStyle>
-              <div className="list-group">
+              <div>
                 {recruiters.map((m) => (
+                  <ListItem>
                   <Link
                     key={m.id}
                     to={`/recruiters/${m.id}`}
-                    className="list-group-item list-group-item-action"
                   >
                     {m.name}
                   </Link>
+                  </ListItem>
                 ))}
               </div>
               </BaseStyle>

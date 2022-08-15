@@ -41,7 +41,7 @@ const SignupButton = styled.button`
 `;
 
 
-const Home = () => {
+const About = () => {
     return (
     <BaseStyle>
         <div>
@@ -68,4 +68,4 @@ const Home = () => {
 )
 }
 
-export default Home;
+export default About;

@@ -66,7 +66,55 @@ func (m *DBModel) Get(id int) (*Recruiter, error) {
 		genres[rg.ID] = rg.Genre.GenreName
 	}
 
+	log.Println("genres")
+	log.Println(genres)
+
 	recruiter.RecruiterGenre = genres
+
+	log.Println("recruiter")
+	log.Println(recruiter)
+
+	// get reviews, if any
+
+	query = `select
+								rr.id, rr.recruiter_id, rr.review_id, r.title, r.description, r.rating
+						from
+							 recruiter_reviews rr
+						   left join reviews r 
+							  on (r.id = rr.review_id)
+						where rr.recruiter_id = $1`
+
+	rowsReviews, _ := m.DB.QueryContext(ctx, query, id)
+	defer rowsReviews.Close()
+
+	reviews := make(map[int]string)
+
+	for rowsReviews.Next() {
+		var rr RecruiterReview
+		err := rowsReviews.Scan(
+			&rr.ID,
+			&rr.RecruiterID,
+			&rr.ReviewID,
+			&rr.Review.Title,
+			&rr.Review.Description,
+			&rr.Review.Rating,
+		)
+		if err != nil {
+			log.Println("err")
+			log.Println(err)
+			return nil, err
+		}
+
+		log.Println(rr.ID)
+		log.Println(rr.Review)
+
+		reviews[rr.ID] = rr.Review.Title + "|" + rr.Review.Description
+	}
+
+	log.Println("reviews")
+	log.Println(reviews)
+
+	recruiter.RecruiterReviews = reviews
 
 	return &recruiter, nil
 }

@@ -6,6 +6,22 @@ const ListStyle = styled.div`
    font-size: 14px;
 `;
 
+const ListItem = styled.li`
+  position: relative;
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #212529;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.125);
+
+  a {
+    font-style: none;
+    font-size: 14px;
+    color: green;
+  }
+`;
+
 const Admin = () => {
   const [recruiters, setRecruiters] = useState([]);
   const [isLoaded, setIsLoaded] = useState("");
@@ -32,16 +48,16 @@ const Admin = () => {
     return (
       <Fragment>
         <h2>Manage Catalogue</h2>
-
-        <div className="list-group">
+        <div>
           {recruiters.map((m) => (
+            <ListItem>
             <Link
               key={m.id}
-              className="list-group-item list-group-item-action"
               to={`/admin/recruiter/${m.id}`}
             >
              <ListStyle>{m.name} ({m.title})</ListStyle>
             </Link>
+          </ListItem>
           ))}
         </div>
         {error && <div>{error}</div>}

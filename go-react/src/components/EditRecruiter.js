@@ -235,15 +235,14 @@ const EditRecruiter = (props) => {
                 />
     
     
-                <button className="btn btn-primary">Save</button>
-                <Link to="/admin" className="btn btn-warning ms-1">
+                <button>Save</button>
+                <Link to="/admin">
                   Cancel
                 </Link>
                 {recruiter.id > 0 && (
                   <a
                     href="#!"
                     onClick={() => confirmDelete()}
-                    className="btn btn-danger ms-1"
                   >
                     Delete
                   </a>

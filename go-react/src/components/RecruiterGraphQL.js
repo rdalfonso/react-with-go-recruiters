@@ -59,21 +59,21 @@ if (!isLoaded) {
               <div>Rating: {recruiter.stars}</div>
               <div>
                   {recruiter.genres.map((genre, index) =>(
-                      <span className="badge bg-secondary me-1" key={index}>
+                      <span key={index}>
                           {genre}
                       </span>
                   ))}
               </div>
-              <div className="row">
+              <div>
                 Company: {recruiter.company}
               </div>
-              <div className="row">
+              <div>
                 Title: {recruiter.title}
               </div>
-              <div className="row">
+              <div>
                 Linkedin: {recruiter.linkedin}
               </div>
-              <div className="row">
+              <div>
                 Emails: {recruiter.email}
               </div>
               </BaseStyle>

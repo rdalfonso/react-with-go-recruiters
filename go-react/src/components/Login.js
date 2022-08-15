@@ -8,6 +8,17 @@ const BaseStyle = styled.div`
    width:"70%";
 `;
 
+const LoginButton = styled.button`
+  width:80px;
+  color: white;
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+`;
+
 const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -91,7 +102,7 @@ const Login = (props) => {
             alertMessage={alert.message}
             />
     
-            <form className="pt-3" onSubmit={handleSubmit}>
+            <form  onSubmit={handleSubmit}>
             <Input
                 title={"Email"}
                 type={"email"}
@@ -113,7 +124,7 @@ const Login = (props) => {
                 errorMsg={"Please enter a password"}
             />
     
-            <button className="btn btn-primary">Login</button>
+            <LoginButton>Login</LoginButton>
             </form>
         </BaseStyle>
       </Fragment>
